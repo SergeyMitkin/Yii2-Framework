@@ -6,13 +6,35 @@
  * Time: 23:21
  */
 namespace app\controllers;
+use app\models\tables\Tasks;
 use app\models\tables\Users;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use app\models\Test;
 use yii\web\UploadedFile;
 
 class ExampleController extends Controller
 {
+    public function  actionDays(){
+
+        $task_date = Tasks::getTaskDate3DaysBefore();
+        $email_array = array_column($task_date, 'email');
+
+        $messages = [];
+        foreach ($email_array as $email) {
+            $messages[] = \Yii::$app->mailer->compose()
+                ->setTo($email->email)
+                ->setFrom('admin@example.com')
+                ->setSubject('task_limit')
+                ->setTextBody('You time is running out!');
+        }
+        \Yii::$app->mailer->sendMultiple($messages);
+    }
+
+    public function actionLang(){
+        \Yii::$app->language = 'en_UK';
+        echo \Yii::t('app', 'error', ['number' => 404]);
+    }
 
     public function actionUpload(){
         $model = new Test();

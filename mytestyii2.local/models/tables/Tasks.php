@@ -5,6 +5,8 @@ namespace app\models\tables;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 use app\models\tables\Comments;
@@ -112,6 +114,21 @@ class Tasks extends \yii\db\ActiveRecord
                 11=>"November",
                 12=>"December"];
         return $month;
+    }
+
+    public static function getTaskDate3DaysBefore(){
+
+        $dateNow = new \DateTime('+3 days');
+        $dateNow = $dateNow->format('Y-m-d');
+        $dateFeature = ArrayHelper::toArray($dateNow);
+
+       $date = (new Query())
+       ->select(['login', 'email'])
+       ->from('tasks')
+           ->join('JOIN', 'users', 'users.id = tasks.id_user_accountable')
+           ->where(['dead_line' => "$dateFeature[0]"])
+           ->all();
+       return $date;
     }
 
     public static function getComments($id){

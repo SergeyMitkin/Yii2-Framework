@@ -4,6 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'language' => 'ru_RU',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'bootstrap'],
@@ -12,8 +13,21 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
         '@uploads' => '@app/uploads'
     ],
-
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Admin',
+        ],
+    ],
     'components' => [
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'ru-RU',
+                ],
+            ],
+        ],
         'bootstrap' => [
             'class' => \app\components\Bootstrap::class
         ],
@@ -48,14 +62,13 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
-        'urlManager' => [
+        /*'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<action>' => 'site/<action>'
             ],
-        ],
-        */
+        ],*/
     ],
     'params' => $params,
 ];
