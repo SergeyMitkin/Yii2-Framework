@@ -45,10 +45,10 @@ AppAsset::register($this);
             ['label' => 'Hello', 'url' => ['/site/hello']],
             //['label' => 'My tasks', 'url' => ['/tasks/index']],
             Yii::$app->user->isGuest ? (
-            ['label' => 'Tasks', 'url' => ['/tasks/index']]
+            ['label' => 'Tasks', 'url' => ['admin/tasks ']]
             ) : (
                 '<li>'
-                . Html::beginForm(['/tasks/create'], 'post')
+                . Html::beginForm(['admin/tasks/create'], 'post')
                 . Html::submitButton(
                     'Create a task for yourself, ' . Yii::$app->user->identity->username,
                     ['class' => 'btn btn-link logout']
@@ -56,7 +56,7 @@ AppAsset::register($this);
                 . Html::endForm()
                 . '</li>'
                 . '<li>'
-                . Html::beginForm(['/tasks/index'], 'post')
+                . Html::beginForm(['admin/tasks/index'], 'post')
                 . Html::submitButton('' . Yii::$app->user->identity->username . '\'s tasks',
                     ['class' => 'btn btn-link logout']
                 )

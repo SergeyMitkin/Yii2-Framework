@@ -8,6 +8,9 @@ use app\models\tables\Tasks;
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
 /* @var $form yii\widgets\ActiveForm */
+
+\app\assets\MyAsset::register($this);
+
 ?>
 
 <div class="tasks-form">
@@ -55,15 +58,8 @@ use app\models\tables\Tasks;
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php
-    /*echo \yii\jui\DatePicker::widget([
-            //'name' => 'My Date',
-        'model' => $model,
-        'attribute' => 'dead_line',
-        'language' => 'ru',
-        'dateFormat' => 'yyyy-MM-dd'
-    ]);*/
-
-    ActiveForm::end(); ?>
-
+    <?php ActiveForm::end(); ?>
 </div>
+
+<button id = my-btn>Нажми меня</button>
+

@@ -31,17 +31,28 @@ class SiteController extends Controller
                     ],
                 ],
             ],
+            /*'contact_access' => [
+                'class' => AccessControl::class,
+                'only' => ['contact'],
+                'rules' => [
+                    [
+                    'actions' => ['contact'],
+                    'allow' => true,
+                    'roles' => ['contactAccess']
+                    ]
+                ]
+            ],*/
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
                 ],
-            ],
+            ]/*,
             'cache' => [
                 'class' => PageCache::class,
                 'duration' => 200,
                 'only' => ['contact']
-            ]
+            ]*/
         ];
     }
 

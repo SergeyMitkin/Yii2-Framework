@@ -7,6 +7,7 @@ use Yii;
 use app\models\tables\Tasks;
 use app\models\filters\TasksFilter;
 use yii\base\Event;
+use yii\filters\AccessControl;
 use yii\filters\PageCache;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -24,18 +25,33 @@ class TasksController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'create', 'update'],
+                'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => false,
+                        'roles'=> ['admin']
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@', '?']
+                    ],
+                    [
+                        'actions' => ['create', 'update'],
+                        'allow' => true,
+                        'roles' => ['@']
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-            ]/*,
-            'cache' => [
-                'class' => PageCache::class,
-                'duration' => 200,
-                'only' => ['index']
-            ]*/
-
+            ]
         ];
     }
 
@@ -62,17 +78,6 @@ class TasksController extends Controller
      */
     public function actionView($id)
     {
-
-        /*$cache = \Yii::$app->cache;
-        $key = 'model' . $id;
-
-        if($cache->exists($key)){
-            $model = $cache->get($key);
-        }else{
-            $model = $this->findModel($id);
-            $cache->set($key, $model, 30);
-        }*/
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

@@ -85,4 +85,14 @@ class ExampleController extends Controller
         var_dump($user); exit;
     }
 
+    public function actionRout($id){
+        // --- ОТЛАДКА НАЧАЛО
+        echo '<pre>';
+        var_dump($id);
+        echo'</pre>';
+        die;
+        // --- Отладка конец
+        exit;
+    }
+
 }
