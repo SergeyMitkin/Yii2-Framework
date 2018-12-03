@@ -19,6 +19,9 @@ $config = [
         ],
     ],
     'components' => [
+        'authManager' => [
+            'class' => \yii\rbac\DbManager::class
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [
@@ -62,13 +65,15 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*'urlManager' => [
+        'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<action>' => 'site/<action>'
+                '<action>' => 'site/<action>',
+                'rout/<id:\d+>' => 'example/rout'
+
             ],
-        ],*/
+        ],
     ],
     'params' => $params,
 ];
